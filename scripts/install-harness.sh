@@ -119,7 +119,8 @@ for rel in \
   state/.gitkeep \
   .gitignore \
   .editorconfig \
-  .gitattributes 
+  docs/release-process.md \
+  .gitattributes \
 
 do
   src="$src_root/$rel"
