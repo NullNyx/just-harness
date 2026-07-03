@@ -115,11 +115,18 @@ for rel in \
   scripts/run-gate.sh \
   scripts/record-evidence.sh \
   scripts/record-note.sh \
+  scripts/install-harness.sh \
   state/.gitkeep \
-  .gitignore
+  .gitignore \
+  .editorconfig \
+  .gitattributes 
+
 do
   src="$src_root/$rel"
   dest="$target_root/$rel"
+  if [[ ! -e "$src" ]]; then
+    continue
+  fi
   if [[ -d "$src" ]]; then
     mkdir -p "$dest"
     continue
