@@ -38,10 +38,14 @@ for c in "${extra_cmds[@]}"; do cmd_list+=("$c"); done
 for cmd in "${cmd_list[@]}"; do
   label="${cmd%% *}"
   set +e
-  out="$(eval "$cmd" 2>&1)"; rc=$?
+  eval "$cmd" >/tmp/run-gate.out 2>&1
+  rc=$?
   set -e
   gate="{\"name\":\"$label\",\"passed\":$([ $rc -eq 0 ] && echo true || echo false),\"exitCode\":$rc}"
   report="$(echo "$report" | jq -c --argjson g "$gate" '.gates += [$g] | if $g.passed == false then .passed = false else . end')"
 done
 echo "$report" | jq .
-exit $([ "$(echo "$report" | jq -r '.passed')" = "true" ] && echo 0 || echo 1)
+if [[ "$(echo "$report" | jq -r '.passed')" == "true" ]]; then
+  exit 0
+fi
+exit 1
