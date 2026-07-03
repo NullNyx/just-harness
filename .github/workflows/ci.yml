@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Shellcheck
+        run: |
+          sudo apt-get install -y shellcheck
+          shellcheck scripts/*.sh
+      - name: Syntax check
+        run: bash -n scripts/*.sh
+
+  install-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install harness into temp dir
+        run: |
+          tmp=$(mktemp -d)
+          cd "$tmp"
+          git init
+          bash "$GITHUB_WORKSPACE/scripts/install-harness.sh" --merge --yes
+          echo "--- Files installed ---"
+          find . -not -path './.git/*' -type f | sort
+          echo "--- Gate smoke test ---"
+          bash scripts/run-gate.sh --profile custom && true

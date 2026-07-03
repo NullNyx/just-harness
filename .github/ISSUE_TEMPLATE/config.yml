@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Tài liệu harness
+    url: https://github.com/NullNyx/just-harness
+    about: Đọc README, AGENTS.md, và docs/ trước khi mở issue mới.

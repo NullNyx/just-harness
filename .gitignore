@@ -1,0 +1,11 @@
+# runtime state
+state/*
+!state/.gitkeep
+
+# common caches
+.DS_Store
+node_modules/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
