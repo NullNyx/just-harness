@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.1.1] — 2026-07-03
+
+### Fixed
+
+- CI: shellcheck warnings (SC2034, SC2046) trong run-gate.sh
+- CI: install-harness not found in copy list, archive dir missing
+- Install docs/notes/archive/.gitkeep để target có archive path hợp lệ
+
+### Added
+
+- .editorconfig, .gitattributes, docs/release-process.md
+
+
 All notable changes to just-harness.
 
 ## [v0.1.0] — 2026-07-03
